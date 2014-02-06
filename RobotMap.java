@@ -1,6 +1,6 @@
 package edu.wpi.first.wpilibj.templates;
 
-import edu.wpi.first.wpilibj.Jaguar;
+import edu.wpi.first.wpilibj.DigitalOutput;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -18,8 +18,21 @@ public class RobotMap {
     // number and the module. For example you with a rangefinder:
     // public static final int rangefinderPort = 1;
     // public static final int rangefinderModule = 1;
-    public static final Jaguar rightFront = new Jaguar(3);
-    public static final Jaguar  rightRear = new Jaguar(6);
-    public static final Jaguar leftFront = new Jaguar(4);
-    public static final Jaguar leftRear = new Jaguar(5);
+    
+    //drive motor ports
+    public static final int rightFront = 1;
+    public static final int rightRear = 4;
+    public static final int leftFront = 2;
+    public static final int leftRear = 3;
+    
+    //compressor-related mappings
+    public static final int pressureSwitch = 1;
+    public static final int compressorRelay = 1;
+    
+    //spike relays
+    public static final int catapultRelay = 6;
+    public static final int catapultForward = 1;
+    public static final int cataputReverse = 2;
+    
+    public static final int gyroChannel = 1;
 }

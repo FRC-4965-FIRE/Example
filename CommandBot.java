@@ -15,6 +15,9 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 import edu.wpi.first.wpilibj.templates.commands.ExampleCommand;
 import edu.wpi.first.wpilibj.templates.commands.JoystickDrive;
+import edu.wpi.first.wpilibj.Watchdog;
+import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Relay.Value;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -33,12 +36,13 @@ public class CommandBot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
+        
+        // Initialize all subsystems
+        CommandBase.init();
+        
         // instantiate the command used for the autonomous period
         autonomousCommand = new ExampleCommand();
         teleopCommand = new JoystickDrive();
-
-        // Initialize all subsystems
-        CommandBase.init();
     }
 
     public void autonomousInit() {
@@ -60,13 +64,15 @@ public class CommandBot extends IterativeRobot {
         // this line or comment it out.
         autonomousCommand.cancel();
         
-        teleopCommand.start();
+        Scheduler.getInstance().add(teleopCommand);
     }
 
     /**
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
+        Watchdog.getInstance().feed();
+        
         Scheduler.getInstance().run();
     }
     

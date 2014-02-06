@@ -1,11 +1,10 @@
 
 package edu.wpi.first.wpilibj.templates;
 
+import edu.wpi.first.wpilibj.templates.commands.*;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Joystick.AxisType;
-import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
+import edu.wpi.first.wpilibj.buttons.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -15,15 +14,48 @@ import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
 public class OI {
     
     Joystick controller = new Joystick(1);
+    Button btnOne = new JoystickButton(controller, 1);
+    Button btnTwo = new JoystickButton(controller, 2);
     
-    public double leftStick()
+    public OI()
     {
-        return controller.getAxis(AxisType.kY);
+        btnOne.whenPressed(new FireCatapult());
     }
     
-     public double rightStick()
+    //the joysticks are inverted
+    public double leftStickY()
     {
-        return controller.getAxis(AxisType.kY);
+        if (controller.getY() < 0.1 && controller.getY() > -0.1)
+        {
+            return 0.0;
+        }
+            
+        return controller.getY();
+    }
+    
+    public double leftStickX()
+    {
+        if (controller.getX() < 0.1 && controller.getX() > -0.1)
+        {
+            return 0.0;
+        }
+        
+        return controller.getX();
+    }
+    
+    public double rightStickY()
+    {
+        return controller.getRawAxis(4);
+    }
+     
+    public double rightStickX()
+    {
+        if (controller.getRawAxis(3) < 0.1 && controller.getRawAxis(3) > -0.1)
+        {
+            return 0.0;
+        }
+        
+        return controller.getRawAxis(3);
     }
 }
 
